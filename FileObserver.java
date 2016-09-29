@@ -57,7 +57,7 @@ public class FileObserver extends JFrame {
         cp.add(a);
 
         directory = new JTextField();
-        File currentDir = new File("./");
+        currentDir = new File("./");
         try {
             directory.setText(currentDir.getCanonicalPath());
         } catch (IOException ex) {
@@ -69,11 +69,10 @@ public class FileObserver extends JFrame {
         chooseFile = new JButton("Choose file...");
         chooseFile.setBounds(432, 35, 120, 28);
         chooseFile.addActionListener(new ChooseFile(this));
-        
         cp.add(chooseFile);
         ok = new JButton("OK");
         ok.setBounds(558, 35, 60, 28);
-        //???
+        ok.addActionListener(new Submit(this));
         cp.add(ok);
         JLabel b = new JLabel("File List:");
         b.setBounds(8, 65, 120, 28);
@@ -98,14 +97,21 @@ public class FileObserver extends JFrame {
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int r = fc.showOpenDialog(this);
         if (r == JFileChooser.APPROVE_OPTION) {
-           
-            currentDir = fc.getCurrentDirectory();
-            try {
-                directory.setText(currentDir.getCanonicalPath());
+           setList (fc.getSelectedFile());
+        }    
+    } 
+    
+    
+    void setList (File dir){
+       dir = (dir == null)?new File(directory.getText()):dir;
+                
+     try {
+                directory.setText(dir.getCanonicalPath());
+                currentDir = dir;
             } catch (IOException ex) {
                 return;
             }
             list.setListData(currentDir.listFiles());
         }
-    } 
-}
+    }
+
