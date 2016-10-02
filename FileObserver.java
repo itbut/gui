@@ -22,7 +22,7 @@ import javax.swing.JTextField;
  */
 /**
  *
- * @author JAVA
+ * @author Kate
  */
 public class FileObserver extends JFrame {
 
